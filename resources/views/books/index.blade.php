@@ -48,7 +48,10 @@
                                         </x-table-cell>
 
                                         <x-table-cell :highlight="true">
-                                            {{ $book->author->name }}
+                                            <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                href="{{ route('authors.edit', $book->author_id) }}">
+                                                {{ $book->author->name }}
+                                            </a>
                                         </x-table-cell>
 
                                         <x-table-cell>
