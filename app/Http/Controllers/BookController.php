@@ -63,7 +63,9 @@ class BookController extends Controller
             "author_id" => $authorId,
         ]);
 
-        return redirect()->route("books.index");
+        return redirect()->route("books.index")->with([
+            "success-notification" => "Successfully created book"
+        ]);
     }
 
     /**
@@ -79,7 +81,9 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return view("books.edit", [
+            "book" => $book,
+        ]);
     }
 
     /**
@@ -87,7 +91,23 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $validated = $request->validate([
+            "title" => "required",
+            "search" => "required",
+            "author_id" => ["nullable", "exists:authors,id"]
+        ]);
+
+        // Create an author, if no identifier was specified
+        $authorId = $validated["author_id"] ?? Author::firstOrCreate(["name" => $validated["search"]])->id;
+
+        $book->update([
+            "title" => $validated["title"],
+            "author_id" => $authorId,
+        ]);
+
+        return redirect()->route("books.index")->with([
+            "success-notification" => "Successfully updated book"
+        ]);
     }
 
     /**
