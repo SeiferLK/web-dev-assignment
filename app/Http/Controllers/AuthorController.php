@@ -12,7 +12,19 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return view("authors");
+        $params = request()->validate([
+            "sort" => ["nullable", "in:id,name,created_at,updated_at"],
+            "order" => ["nullable", "in:asc,desc"],
+        ]);
+
+        $column = $params["sort"] ?? "id";
+        $direction = $params["order"] ?? "asc";
+
+        $paginatedAuthors = Author::query()->orderBy($column, $direction)->cursorPaginate(perPage: 10)->withQueryString();
+
+        return view("authors.index", [
+            "authors" => $paginatedAuthors,
+        ]);
     }
 
     /**
@@ -20,7 +32,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+        return view("authors.create");
     }
 
     /**
@@ -28,11 +40,19 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            "name" => ["required", "string", "max:255"],
+        ]);
+
+        Author::create($validated);
+
+        return redirect()->route("authors.index");
     }
 
     /**
      * Display the specified resource.
+     * 
+     * GET /authors/1
      */
     public function show(Author $author)
     {
@@ -44,7 +64,9 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+        return view("authors.edit", [
+            "author" => $author,
+        ]);
     }
 
     /**
@@ -52,14 +74,24 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $validated = $request->validate([
+            "name" => ["required", "string", "max:255"],
+        ]);
+
+        $author->update($validated);
+
+        return redirect()->route("authors.index");
     }
 
     /**
      * Remove the specified resource from storage.
+     * 
+     * DELETE /authors/1
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+
+        return redirect()->route("authors.index");
     }
 }
