@@ -22,7 +22,11 @@ class AuthorController extends Controller
         $column = $params["sort"] ?? "id";
         $direction = $params["order"] ?? "asc";
 
-        $paginatedAuthors = Author::query()->orderBy($column, $direction)->cursorPaginate(perPage: 10)->withQueryString();
+        $paginatedAuthors = Author::query()
+            ->orderBy($column, $direction)
+            ->withCount("books")
+            ->cursorPaginate(perPage: 10)
+            ->withQueryString();
 
         return view("authors.index", [
             "authors" => $paginatedAuthors,

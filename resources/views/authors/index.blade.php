@@ -49,8 +49,9 @@
 
                         <x-table>
                             <x-slot name="head">
-                                <x-table-header title="ID" :sortable="true" :href="route('authors.index', ['sort' => 'id', 'order' => request('order') === 'asc' ? 'desc' : 'asc'])" />
-                                <x-table-header title="Name" />
+                                <x-table-header title="ID" :sortable="true" :href="route('authors.index', ['sort' => 'id', 'order' => request('order') === 'desc' ? 'asc' : 'desc'])" />
+                                <x-table-header title="Name" :sortable="true" :href="route('authors.index', ['sort' => 'name', 'order' => request('order') === 'desc' ? 'asc' : 'desc'])" />
+                                <x-table-header title="# Books" />
                                 <x-table-header title="Created" />
                                 <x-table-header title="Updated" />
                                 <x-table-header title="Actions" />
@@ -62,6 +63,10 @@
 
                                         <x-table-cell :highlight="true">
                                             {{ $author->name }}
+                                        </x-table-cell>
+
+                                        <x-table-cell>
+                                            {{ $author->books_count }}
                                         </x-table-cell>
 
                                         <x-table-cell :highlight="true">
