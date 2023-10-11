@@ -2,17 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 
 class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        return view("books");
+        $params = request()->validate([
+            "sort" => ["nullable", "in:id,name,created_at,updated_at"],
+            "order" => ["nullable", "in:asc,desc"],
+        ]);
+
+        $column = $params["sort"] ?? "id";
+        $direction = $params["order"] ?? "asc";
+
+        $paginatedBooks = Book::with("author")
+            ->orderBy($column, $direction)
+            ->cursorPaginate(perPage: 10)
+            ->withQueryString();
+
+        return view("books.index", [
+            "books" => $paginatedBooks
+        ]);
     }
 
     /**
@@ -20,7 +39,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view("books.create", [
+            "authors" => Author::all()
+        ]);
     }
 
     /**
@@ -28,7 +49,21 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            "title" => "required",
+            "search" => "required",
+            "author_id" => ["nullable", "exists:authors,id"]
+        ]);
+
+        // Create an author, if no identifier was specified
+        $authorId = $validated["author_id"] ?? Author::firstOrCreate(["name" => $validated["search"]])->id;
+
+        Book::create([
+            "title" => $validated["title"],
+            "author_id" => $authorId,
+        ]);
+
+        return redirect()->route("books.index");
     }
 
     /**
@@ -58,8 +93,10 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
+    public function destroy(Book $book): RedirectResponse
     {
-        //
+        $book->delete();
+
+        return redirect()->route("books.index");
     }
 }
