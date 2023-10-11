@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Author;
+use App\Models\Book;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +16,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'name' => "Ash",
+            'email' => 'ash@gmail.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        Author::factory()
+            ->count(5)
+            ->hasBooks(1)
+            ->create();
+
+        Author::factory()
+            ->count(10)
+            ->hasBooks(2)
+            ->create();
+
+
+        Author::factory()
+            ->count(15)
+            ->hasBooks(3)
+            ->create();
     }
 }
