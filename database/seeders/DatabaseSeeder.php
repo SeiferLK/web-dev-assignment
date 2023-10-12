@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Disable Laravel Scout indexing during database seeding.
+        config(['scout.driver' => 'null']);
 
         User::factory()->create([
             'name' => "Ash",
@@ -24,18 +26,17 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Author::factory()
-            ->count(5)
+            ->count(50)
             ->hasBooks(1)
             ->create();
 
         Author::factory()
-            ->count(10)
+            ->count(100)
             ->hasBooks(2)
             ->create();
 
-
         Author::factory()
-            ->count(15)
+            ->count(150)
             ->hasBooks(3)
             ->create();
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SearchController;
 use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,3 +29,5 @@ Route::get("/authors", function (Request $request) {
 
     return Author::where("name", "like", $request->input("name") . "%")->get();
 });
+
+Route::get("/search", [SearchController::class, "search"]);
