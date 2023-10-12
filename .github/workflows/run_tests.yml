@@ -26,13 +26,13 @@ jobs:
         with:
           php-version: "8.2"
 
-      - name: Install Dependencies
+      - name: Install Composer Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Generate key
+      - name: Generate app key
         run: php artisan key:generate
 
-      - name: Build assets
+      - name: Install and build front end assets
         run: npm install && npm run build
 
       - name: Config cache
