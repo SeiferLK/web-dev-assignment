@@ -35,9 +35,9 @@
 
     const fetchData = async (searchString) => {
         const query = new URLSearchParams({
-            name: searchString
+            query: searchString
         })
-        const URL = window.location.origin + "/api/authors?" + query;
+        const URL = window.location.origin + "/api/search/authors?" + query;
         const response = await fetch(URL, {
             method: "GET",
             headers: {
