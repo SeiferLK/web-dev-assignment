@@ -43,7 +43,7 @@
                             </x-slot>
                         </x-table>
                     @else
-                        <p>No authors found.</p>
+                        <p class="text-red-500">No authors found.</p>
                     @endif
 
 
@@ -77,7 +77,7 @@
                             </x-slot>
                         </x-table>
                     @else
-                        <p>No books found.</p>
+                        <p class="text-red-500">No books found.</p>
                     @endif
 
                 </div>
