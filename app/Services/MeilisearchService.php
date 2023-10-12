@@ -8,7 +8,7 @@ use Meilisearch\Search\SearchResult;
 final class MeilisearchService
 {
 
-    public static function search(string $model, string $query, int $page = 1, int $perPage = 10, string $filter = null, string $sort = null): SearchResult
+    public static function search(string $model, string $query, int $page = 1, int $perPage = 10, string $filter = null, string $sort = null, array $attributesToHighlight = null): SearchResult
     {
         $client = new MeilisearchClient(config("scout.meilisearch.host"), config("scout.meilisearch.key"));
         $index = $client->getIndex((new $model)->searchableAs());
@@ -24,6 +24,10 @@ final class MeilisearchService
 
         if ($sort) {
             $options["sort"] = [$sort];
+        }
+
+        if ($attributesToHighlight) {
+            $options["attributesToHighlight"] = $attributesToHighlight;
         }
 
         return $index->search(

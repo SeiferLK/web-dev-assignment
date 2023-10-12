@@ -13,31 +13,69 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
                     <!-- Search results -->
-                    <h2>Authors</h2>
+                    <h2 class="text-xl mt-4 mb-2">Authors</h2>
 
-                    @if ($authors->count() > 0)
-                        <ul>
-                            @foreach ($authors as $author)
-                                <li>
-                                    <a href="{{ route('authors.edit', $author) }}">{{ $author->name }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
+                    @if (count($authors) > 0)
+                        <x-table>
+                            <x-slot name="head">
+                                <x-table-header title="ID" />
+                                <x-table-header title="Author" />
+                                <x-table-header title="# Books" />
+                            </x-slot>
+                            <x-slot name="body">
+
+                                @foreach ($authors as $author)
+                                    <x-table-row>
+                                        <x-table-cell>{{ $author['id'] }}</x-table-cell>
+
+                                        <x-table-cell :highlight="true">
+                                            <a href="{{ route('authors.edit', $author['id']) }}" class="text-blue-500">
+                                                {!! $author['_formatted']['name'] !!}
+                                            </a>
+                                        </x-table-cell>
+
+                                        <x-table-cell>
+                                            {!! $author['books_count'] !!}
+                                        </x-table-cell>
+
+                                    </x-table-row>
+                                @endforeach
+                            </x-slot>
+                        </x-table>
                     @else
                         <p>No authors found.</p>
                     @endif
 
 
-                    <h2>Books</h2>
+                    <h2 class="text-xl mt-4 mb-2">Books</h2>
 
-                    @if ($books->count() > 0)
-                        <ul>
-                            @foreach ($books as $book)
-                                <li>
-                                    <a href="{{ route('books.edit', $book) }}">{{ $book->title }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
+                    @if (count($books) > 0)
+                        <x-table>
+                            <x-slot name="head">
+                                <x-table-header title="ID" />
+                                <x-table-header title="Title" />
+                                <x-table-header title="Author" />
+                            </x-slot>
+                            <x-slot name="body">
+
+                                @foreach ($books as $book)
+                                    <x-table-row>
+                                        <x-table-cell>{{ $book['id'] }}</x-table-cell>
+
+                                        <x-table-cell :highlight="true">
+                                            <a href="{{ route('books.edit', $book['id']) }}" class="text-blue-500">
+                                                {!! $book['_formatted']['title'] !!}
+                                            </a>
+                                        </x-table-cell>
+
+                                        <x-table-cell>
+                                            {!! $book['_formatted']['author_name'] !!}
+                                        </x-table-cell>
+
+                                    </x-table-row>
+                                @endforeach
+                            </x-slot>
+                        </x-table>
                     @else
                         <p>No books found.</p>
                     @endif

@@ -34,4 +34,13 @@ class Author extends Model
     {
         return $this->hasMany(Book::class);
     }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'books_count' => $this->books()->count(),
+        ];
+    }
 }
