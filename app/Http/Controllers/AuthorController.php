@@ -86,7 +86,9 @@ class AuthorController extends Controller
 
         $author->update($validated);
 
-        return redirect()->route("authors.index");
+        return redirect()->route("authors.index")->with([
+            "success-notification" => "Successfully updated author"
+        ]);
     }
 
     /**
