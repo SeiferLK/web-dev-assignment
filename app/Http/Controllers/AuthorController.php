@@ -98,6 +98,8 @@ class AuthorController extends Controller
     {
         $author->delete();
 
-        return redirect()->route("authors.index");
+        return redirect()->route("authors.index")->with([
+            "success-notification" => "Deleted author"
+        ]);
     }
 }
