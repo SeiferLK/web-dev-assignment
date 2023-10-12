@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\SearchApiController;
-use App\Http\Controllers\SearchController;
 use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Search by author
-Route::get("/search/authors",  [SearchApiController::class, "searchAuthors"]);
+Route::get("/search/authors", [SearchApiController::class, "searchAuthors"]);
 
 Route::get("/search", [SearchApiController::class, "search"]);

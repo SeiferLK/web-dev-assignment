@@ -57,7 +57,7 @@ class AuthorController extends Controller
 
     /**
      * Display the specified resource.
-     * 
+     *
      * GET /authors/1
      */
     public function show(Author $author)
@@ -87,13 +87,13 @@ class AuthorController extends Controller
         $author->update($validated);
 
         return redirect()->route("authors.index")->with([
-            "success-notification" => "Successfully updated author"
+            "success-notification" => "Successfully updated author",
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
-     * 
+     *
      * DELETE /authors/1
      */
     public function destroy(Author $author): RedirectResponse
@@ -101,7 +101,7 @@ class AuthorController extends Controller
         $author->delete();
 
         return redirect()->route("authors.index")->with([
-            "success-notification" => "Deleted author"
+            "success-notification" => "Deleted author",
         ]);
     }
 }

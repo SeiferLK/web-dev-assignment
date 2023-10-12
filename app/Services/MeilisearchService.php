@@ -7,7 +7,6 @@ use Meilisearch\Search\SearchResult;
 
 final class MeilisearchService
 {
-
     public static function search(string $model, string $query, int $page = 1, int $perPage = 10, string $filter = null, string $sort = null, array $attributesToHighlight = null): SearchResult
     {
         $client = new MeilisearchClient(config("scout.meilisearch.host"), config("scout.meilisearch.key"));

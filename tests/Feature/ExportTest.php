@@ -26,7 +26,7 @@ class ExportTest extends TestCase
         Book::truncate();
         Author::truncate();
 
-        $csvString = <<<CSV
+        $csvString = <<<'CSV'
         title,author
         "Eum illo quo officia.","Alexa Moen I"
         "Distinctio qui animi voluptas.","Zachery Kiehn"
@@ -81,7 +81,7 @@ class ExportTest extends TestCase
         Book::truncate();
         Author::truncate();
 
-        $xmlString = <<<XML
+        $xmlString = <<<'XML'
         <?xml version="1.0"?>
         <root><row><title>Eum illo quo officia.</title><author>Alexa Moen I</author></row><row><title>Distinctio qui animi voluptas.</title><author>Zachery Kiehn</author></row><row><title>Explicabo praesentium atque animi.</title><author>Royal Quitzon</author></row><row><title>Beatae occaecati aliquam quam.</title><author>Dell Gleason</author></row><row><title>Qui rerum doloremque porro dolores.</title><author>Katelin Larson</author></row><row><title>Numquam minus.</title><author>Dr. Jolie Tremblay</author></row><row><title>Reprehenderit iste minus fugit.</title><author>Emmet Heidenreich</author></row><row><title>Inventore voluptatibus rerum illum.</title><author>Prof. Fernando Yost MD</author></row><row><title>Ea nihil minus.</title><author>Mikel Johnston</author></row><row><title>Ipsum maiores quisquam eligendi.</title><author>Elva O'Kon</author></row></root>
         XML;

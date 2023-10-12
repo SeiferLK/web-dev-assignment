@@ -1,0 +1,10 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "single_quote": false,
+        "concat_space": false,
+        "not_operator_with_successor_space": false,
+        "blank_line_before_statement": false,
+        "types_spaces": true
+    }
+}

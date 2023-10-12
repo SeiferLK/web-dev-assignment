@@ -37,14 +37,14 @@ class SearchApiController extends Controller
 
         return [
             "books" => $books->getHits(),
-            "authors" => $authors->getHits()
+            "authors" => $authors->getHits(),
         ];
     }
 
     public function searchAuthors(Request $request)
     {
         $request->validate([
-            "query" => "string"
+            "query" => "string",
         ]);
 
         $authors = MeilisearchService::search(

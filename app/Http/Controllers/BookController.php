@@ -6,7 +6,6 @@ use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class BookController extends Controller
@@ -31,7 +30,7 @@ class BookController extends Controller
             ->withQueryString();
 
         return view("books.index", [
-            "books" => $paginatedBooks
+            "books" => $paginatedBooks,
         ]);
     }
 
@@ -41,7 +40,7 @@ class BookController extends Controller
     public function create()
     {
         return view("books.create", [
-            "authors" => Author::all()
+            "authors" => Author::all(),
         ]);
     }
 
@@ -53,7 +52,7 @@ class BookController extends Controller
         $validated = $request->validate([
             "title" => "required",
             "search" => "required",
-            "author_id" => ["nullable", "exists:authors,id"]
+            "author_id" => ["nullable", "exists:authors,id"],
         ]);
 
         // Create an author, if no identifier was specified
@@ -65,7 +64,7 @@ class BookController extends Controller
         ]);
 
         return redirect()->route("books.index")->with([
-            "success-notification" => "Successfully created book"
+            "success-notification" => "Successfully created book",
         ]);
     }
 
@@ -95,7 +94,7 @@ class BookController extends Controller
         $validated = $request->validate([
             "title" => "required",
             "search" => "required",
-            "author_id" => ["nullable", "exists:authors,id"]
+            "author_id" => ["nullable", "exists:authors,id"],
         ]);
 
         // Create an author, if no identifier was specified
@@ -107,7 +106,7 @@ class BookController extends Controller
         ]);
 
         return redirect()->route("books.index")->with([
-            "success-notification" => "Successfully updated book"
+            "success-notification" => "Successfully updated book",
         ]);
     }
 
@@ -119,7 +118,7 @@ class BookController extends Controller
         $book->delete();
 
         return redirect()->route("books.index")->with([
-            "success-notification" => "Deleted book"
+            "success-notification" => "Deleted book",
         ]);
     }
 }
