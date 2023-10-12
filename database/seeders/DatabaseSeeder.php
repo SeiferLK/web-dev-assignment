@@ -24,6 +24,12 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
+        User::factory()->create([
+            'name' => "Yaraku",
+            'email' => 'yaraku@gmail.com',
+            'password' => bcrypt('password'),
+        ]);
+
         Author::factory()
             ->count(50)
             ->hasBooks(1)
