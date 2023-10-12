@@ -21,7 +21,7 @@ class BookController extends Controller
             "order" => ["nullable", "in:asc,desc"],
         ]);
 
-        $column = $params["sort"] ?? "id";
+        $column = $params["sort"] ?? "books.id";
         $direction = $params["order"] ?? "asc";
 
         $paginatedBooks = Book::with("author")
