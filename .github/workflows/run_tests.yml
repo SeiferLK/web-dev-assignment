@@ -32,6 +32,9 @@ jobs:
       - name: Generate key
         run: php artisan key:generate
 
+      - name: Build assets
+        run: npm install && npm run dev
+
       - name: Config cache
         run: |
           php artisan route:cache
