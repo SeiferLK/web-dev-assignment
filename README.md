@@ -6,18 +6,28 @@ Tech stack:
 -   **SQLite** for simple data persistence
 -   **Meilisearch** (Laravel Scout) for a powerful search engine that powers the search page and autocompletions.
 -   **Docker** (Laravel Sail) setup that creates a `docker-compose.yml` file and a `sail` shell script to interact with the docker container.
+-   Blade templates and components, with Tailwind for styling. Pages are fully server-rendered. Dark mode support.
 
 ### Running locally
+
+> Note: make sure you have Node >=18 installed on your device before continuing
 
 ```sh
 # Create a database.sqlite file
 touch database/database.sqlite
 cp .env.example .env
+npm install
 npm run build
 ./vendor/bin/sail up
 
+# (Optional: alias 'sail' to ./vendor/bin/sail)
+alias sail=./vendor/bin/sail
+
 # Attach to docker container shell
-sail shell
+./vendor/bin/sail shell
+
+# Generate an application key
+php artisan key:generate
 
 # Run migrations and seeders
 php artisan migrate
