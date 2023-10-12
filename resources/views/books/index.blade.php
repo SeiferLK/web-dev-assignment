@@ -31,9 +31,9 @@
 
                         <x-table>
                             <x-slot name="head">
-                                <x-table-header title="ID" :sortable="true" :href="route('books.index', ['sort' => 'id', 'order' => request('order') === 'desc' ? 'asc' : 'desc'])" />
-                                <x-table-header title="Title" :sortable="true" :href="route('books.index', ['sort' => 'title', 'order' => request('order') === 'desc' ? 'asc' : 'desc'])" />
-                                <x-table-header title="Author" :sortable="true" :href="route('books.index', ['sort' => 'name', 'order' => request('order') === 'desc' ? 'asc' : 'desc'])" />
+                                <x-table-header title="ID" :sortable="true" :href="route('books.index', ['sort' => 'books.id', 'order' => request('order') === 'desc' ? 'asc' : 'desc'])" />
+                                <x-table-header title="Title" :sortable="true" :href="route('books.index', ['sort' => 'books.title', 'order' => request('order') === 'desc' ? 'asc' : 'desc'])" />
+                                <x-table-header title="Author" :sortable="true" :href="route('books.index', ['sort' => 'authors.name', 'order' => request('order') === 'desc' ? 'asc' : 'desc'])" />
                                 <x-table-header title="Actions" />
                             </x-slot>
                             <x-slot name="body">

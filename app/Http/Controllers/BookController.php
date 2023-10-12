@@ -17,7 +17,7 @@ class BookController extends Controller
     public function index(): View
     {
         $params = request()->validate([
-            "sort" => ["nullable", "in:id,name,created_at,updated_at"],
+            "sort" => ["nullable", "in:books.id,books.title,authors.name,created_at,updated_at"],
             "order" => ["nullable", "in:asc,desc"],
         ]);
 
@@ -25,6 +25,7 @@ class BookController extends Controller
         $direction = $params["order"] ?? "asc";
 
         $paginatedBooks = Book::with("author")
+            ->join("authors", "authors.id", "=", "books.author_id")
             ->orderBy($column, $direction)
             ->cursorPaginate(perPage: 10)
             ->withQueryString();
