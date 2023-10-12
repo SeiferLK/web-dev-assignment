@@ -23,6 +23,10 @@
                     <x-nav-link :href="route('authors.index')" :active="request()->routeIs('authors.index')">
                         {{ __('Authors') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('export.index')" :active="request()->routeIs('export.index')">
+                        {{ __('Export') }}
+                    </x-nav-link>
                 </div>
 
             </div>

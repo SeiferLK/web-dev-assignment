@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ExportController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -59,10 +60,12 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-    // Authors crud
-
     Route::resources([
         'authors' => AuthorController::class,
         'books' => BookController::class,
     ]);
+
+    Route::get("export", [ExportController::class, "index"])->name("export.index");
+
+    Route::post("export/file", [ExportController::class, "file"])->name("export.file");
 });
