@@ -24,6 +24,7 @@ class BookController extends Controller
         $direction = $params["order"] ?? "asc";
 
         $paginatedBooks = Book::with("author")
+            ->select("books.*")
             ->join("authors", "authors.id", "=", "books.author_id")
             ->orderBy($column, $direction)
             ->cursorPaginate(perPage: 10)

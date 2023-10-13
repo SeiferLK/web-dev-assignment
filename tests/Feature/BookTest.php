@@ -151,4 +151,35 @@ class BookTest extends TestCase
             'id' => $book->id,
         ]);
     }
+
+    public function test_books_page_should_show_book_id_instead_of_author_id(): void
+    {
+        // Clear books and authors
+        Book::truncate();
+        Author::truncate();
+
+        $user = User::factory()->create();
+
+        $author = Author::factory()->create([
+            "id" => 1000,
+        ]);
+
+        $book = Book::factory()->create([
+            "id" => 1001,
+            "author_id" => $author->id,
+        ]);
+
+        $this->assertTrue(
+            $book->id !== $author->id,
+            "Book id should not be the same as the author id (for this test)"
+        );
+
+        $response = $this->actingAs($user)->get('/books');
+
+        $response->assertStatus(200);
+        $response->assertSeeTextInOrder([
+            $book->id,
+            $book->title,
+        ]);
+    }
 }

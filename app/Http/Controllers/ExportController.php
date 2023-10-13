@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Models\Book;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ExportController extends Controller
 {
@@ -13,7 +14,7 @@ class ExportController extends Controller
         return view('export.index');
     }
 
-    public function file()
+    public function file(): StreamedResponse
     {
         $validated = request()->validate([
             "export-data" => ["required", "in:title-author,title,author"],
