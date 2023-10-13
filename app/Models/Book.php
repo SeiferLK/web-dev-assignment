@@ -37,6 +37,29 @@ class Book extends Model
         "author_id",
     ];
 
+    protected static function booted(): void
+    {
+        static::created(function (Book $book) {
+            $book->author->searchable();
+        });
+
+        // When an author is changed, make sure the search index is updated
+        static::saved(function (Book $book) {
+            $book->author->searchable();
+
+            // If the author was changed, update the old author's search index
+            if ($book->isDirty("author_id")) {
+                Author::find($book->getOriginal("author_id"))?->searchable();
+            }
+        });
+
+        // When a book is deleted, update the author's search index
+        static::deleted(function (Book $book) {
+            $book->author->searchable();
+        });
+    }
+
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(Author::class);
